@@ -82,7 +82,7 @@ fun LogInScreen(modifier: Modifier = Modifier, navController: NavHostController)
                 modifier = Modifier.fillMaxWidth(),
                 value = email,
                 onValueChange = { email = it },
-                label = { Text("Password") })
+                label = { Text("Email") })
             Spacer(Modifier.size(16.dp))
             FoodHubTextField(
                 modifier = Modifier.fillMaxWidth(),
