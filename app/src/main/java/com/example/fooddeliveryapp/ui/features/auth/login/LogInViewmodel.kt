@@ -1,10 +1,10 @@
-package com.example.fooddeliveryapp.ui.features.auth.signup
+package com.example.fooddeliveryapp.ui.features.auth.login
 
 import android.provider.ContactsContract.CommonDataKinds.Email
-import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.fooddeliveryapp.data.FoodApi
+import com.example.fooddeliveryapp.data.models.LogInRequest
 import com.example.fooddeliveryapp.data.models.SignUpRequest
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -13,26 +13,23 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class SignUpViewmodel @Inject constructor(private val foodApi: FoodApi) : ViewModel() {
-    private val _uiState = MutableStateFlow<SignUpEvent>(SignUpEvent.Idle)
+class LogInViewmodel @Inject constructor(private val foodApi: FoodApi) : ViewModel() {
+    private val _uiState = MutableStateFlow<LoginEvent>(LoginEvent.Idle)
     val uiState=_uiState.asStateFlow()
 
-    fun signUp( name:String,email: String,password:String) {
-        _uiState.value=SignUpEvent.Loading
+    fun login( email: String,password:String) {
+        _uiState.value=LoginEvent.Loading
         viewModelScope.launch {
             try {
-               val response= foodApi.signUp(SignUpRequest(
-                    name=name,
+               val response= foodApi.logIn(LogInRequest(
                     email=email,
                     password=password
                 ))
                 if (response.token.isNotEmpty()) {
-
-                    _uiState.value=SignUpEvent.Success
-                    Log.d("tokenId",response.token)
+                    _uiState.value=LoginEvent.Success
                 }
                 else {
-                    _uiState.value=SignUpEvent.Error
+                    _uiState.value=LoginEvent.Error
                 }
             }catch (e:Exception) {
                 e.printStackTrace()
@@ -41,10 +38,10 @@ class SignUpViewmodel @Inject constructor(private val foodApi: FoodApi) : ViewMo
         }
     }
 
-    sealed class SignUpEvent {
-        data object Idle : SignUpEvent()
-        data object Success : SignUpEvent()
-        data object Error : SignUpEvent()
-        data object Loading : SignUpEvent()
+    sealed class LoginEvent {
+        data object Idle : LoginEvent()
+        data object Success : LoginEvent()
+        data object Error : LoginEvent()
+        data object Loading : LoginEvent()
     }
 }

@@ -73,7 +73,7 @@ class MainActivity : ComponentActivity() {
                 zoomX.start()
             }
         }
-        val navController= NavController
+
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContent {
@@ -94,13 +94,7 @@ class MainActivity : ComponentActivity() {
     }
 }
 
-@Composable
-fun Greeting(name: String, modifier: Modifier = Modifier) {
-    Text(
-        text = "Hello $name!",
-        modifier = modifier
-    )
-}
+
 
 @Composable
 fun MainApp() {

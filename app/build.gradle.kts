@@ -65,10 +65,12 @@ dependencies {
     implementation(libs.androidx.core.splashscreen)
     implementation(libs.hilt.android)
     kapt(libs.hilt.android.compiler)
-    implementation("androidx.hilt:hilt-navigation-compose:1.1.0-beta01")
+    implementation(libs.androidx.hilt.navigation.compose)
 
     implementation (libs.retrofit) // Core Retrofit library
     implementation (libs.converter.gson) // Gson converter for JSON parsing
     implementation(libs.logging.interceptor)
     implementation(libs.androidx.navigation.compose)
+
+    implementation (libs.androidx.datastore.preferences)
 }
